@@ -8,17 +8,22 @@ import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import { Skills } from "./components/Skills";
 import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact";
+import { Container } from "./components/Container";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-	return (
-		<main className=" bg-neutral-900  snap-y snap-mandatory  ">
-			<Hero />
-			<About />
-			<Skills />
-			<Projects />
-			<Contact />
-		</main>
-	);
+  return (
+    <main className=" bg-neutral-900  ">
+      <Container>
+        <Hero />
+      </Container>
+      <Container>
+        <About />
+      </Container>
+      <Container>
+        <Skills />
+      </Container>
+    </main>
+  );
 }
