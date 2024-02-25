@@ -13,13 +13,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
 	return (
-		<main className=" bg-neutral-900     ">
+		<main className=" bg-neutral-900  snap-y snap-mandatory  ">
 			<Hero />
 			<About />
 			<Skills />
 			<Projects />
 			<Contact />
-
 		</main>
 	);
 }

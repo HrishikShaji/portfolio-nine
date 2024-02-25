@@ -3,7 +3,7 @@ import { data } from "../lib/data";
 
 export const Hero = () => {
 	return (
-		<div className="h-screen p-5 sticky top-0 w-full z-0">
+		<div className="snap-center h-screen p-5 sticky top-0 w-full z-0">
 			<div className="flex items-center bg-neutral-700 justify-center w-full h-full rounded-3xl">
 				<div className="flex items-center gap-100">
 					<Image
