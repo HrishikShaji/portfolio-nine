@@ -13,7 +13,7 @@ export const About = () => {
 		let ctx = gsap.context(() => {
 			const tl = gsap.timeline();
 			gsap.set(paragraphRef.current, { opacity: 0 });
-			gsap.fromTo(
+			tl.fromTo(
 				imageRef.current,
 				{ scale: 2.5 },
 				{
@@ -23,20 +23,21 @@ export const About = () => {
 						start: "top bottom",
 						end: "center center",
 						scrub: 1,
+						markers: true,
 					},
 				},
-			);
-			gsap.to(paragraphRef.current, {
+			).to(paragraphRef.current, {
 				opacity: 1,
 				scrollTrigger: {
 					trigger: mainContainerRef.current,
 					start: "top 25%",
 					end: "center center",
 					scrub: 1,
-					markers: true,
 				},
 			});
 		}, mainContainerRef);
+
+		return () => ctx.revert();
 	}, []);
 
 	return (
