@@ -5,15 +5,17 @@ import { data } from "../lib/data";
 export const Skills = () => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const mainContainerRef = useRef<HTMLDivElement>(null);
+	const skillRef = useRef<(HTMLDivElement | null)[]>([]);
 
 	useEffect(() => {
 		let ctx = gsap.context(() => {
-			gsap.fromTo(
+			const tl = gsap.timeline();
+			tl.fromTo(
 				containerRef.current,
 				{
 					rotateX: "-45deg",
 					y: 200,
-					scale: 0.95,
+					scale: 1.1,
 				},
 				{
 					y: 0,
@@ -21,13 +23,22 @@ export const Skills = () => {
 					rotateX: "0deg",
 					scrollTrigger: {
 						trigger: mainContainerRef.current,
-						start: "top center",
+						start: "top bottom",
 						end: "center center",
-						scrub: true,
-						markers: true,
+						scrub: 1,
 					},
 				},
-			);
+			).from(skillRef.current, {
+				y: 100,
+				stagger: 0.025,
+				duration: 2,
+				scrollTrigger: {
+					trigger: mainContainerRef.current,
+					start: "top bottom",
+					end: "center center",
+					scrub: 1,
+				},
+			});
 		}, mainContainerRef);
 		return () => ctx.revert();
 	}, []);
@@ -35,7 +46,6 @@ export const Skills = () => {
 	return (
 		<div
 			ref={mainContainerRef}
-			style={{ perspective: "4000px" }}
 			className="h-screen p-5 sticky overflow-hidden  top-0 w-full z-0"
 		>
 			<div
@@ -46,6 +56,7 @@ export const Skills = () => {
 				<div className="flex gap-2 h-full w-full">
 					{data.skills.data.map((skill, i) => (
 						<div
+							ref={(el) => (skillRef.current[i] = el)}
 							key={i}
 							className="bg-white h-full w-full flex relative items-end"
 						>
