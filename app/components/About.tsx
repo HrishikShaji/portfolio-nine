@@ -9,7 +9,7 @@ export const About = () => {
 	const imageRef = useRef<HTMLImageElement>(null);
 	const paragraphRef = useRef<HTMLParagraphElement>(null);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		let ctx = gsap.context(() => {
 			const tl = gsap.timeline();
 			gsap.set(paragraphRef.current, { opacity: 0 });
@@ -40,7 +40,7 @@ export const About = () => {
 	}, []);
 
 	return (
-		<div className="flex flex-col gap-10" ref={mainContainerRef}>
+		<div className="flex h-full w-full flex-col gap-10" ref={mainContainerRef}>
 			<h1 className="text-6xl font-poppins font-semibold">ABOUT</h1>
 			<div className="flex items-center gap-10">
 				<div className="w-[50vw] rounded-3xl h-full overflow-hidden">

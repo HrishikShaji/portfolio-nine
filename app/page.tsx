@@ -31,7 +31,6 @@ export default function Home() {
             start: "top top",
             end: "center 30%",
             scrub: 1,
-            markers: true,
           },
         },
       );
@@ -40,14 +39,21 @@ export default function Home() {
 
   return (
     <main className=" bg-neutral-900">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <div
-          key={i}
-          className="h-screen sticky top-0 w-full flex justify-center items-center"
-        >
-          <div className="h-[80%] w-[80%] bg-teal-500">HRLo</div>
+      <div className="h-screen p-10 sticky top-0 w-full flex justify-center items-center">
+        <div className="h-full w-full">
+          <Hero />
         </div>
-      ))}
+      </div>
+      <div className="h-screen p-10 sticky top-0 w-full flex justify-center items-center">
+        <div className="h-full w-full">
+          <About />
+        </div>
+      </div>
+      <div className="h-screen p-10 sticky top-0 w-full flex justify-center items-center">
+        <div className="h-full w-full">
+          <Skills />
+        </div>
+      </div>
     </main>
   );
 }
