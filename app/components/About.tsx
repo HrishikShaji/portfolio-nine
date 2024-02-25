@@ -7,10 +7,12 @@ export const About = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mainContainerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const paragraphRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
       const tl = gsap.timeline();
+      gsap.set(paragraphRef.current, { opacity: 0 });
       tl.fromTo(
         imageRef.current,
         { scale: 2.5 },
@@ -21,29 +23,38 @@ export const About = () => {
             start: "top bottom",
             end: "center center",
             scrub: 1,
-            markers: true,
           },
         },
-      ).fromTo(
-        containerRef.current,
-        {
-          rotateX: "-45deg",
-          y: 200,
-          scale: 1.1,
-        },
-        {
-          y: 0,
-          scale: 1,
-          rotateX: "0deg",
+      )
+        .fromTo(
+          containerRef.current,
+          {
+            rotateX: "-45deg",
+            y: 200,
+            scale: 1.1,
+          },
+          {
+            y: 0,
+            scale: 1,
+            rotateX: "0deg",
+            scrollTrigger: {
+              trigger: mainContainerRef.current,
+              start: "top bottom",
+              end: "center center",
+              scrub: 1,
+            },
+          },
+        )
+        .to(paragraphRef.current, {
+          opacity: 1,
           scrollTrigger: {
             trigger: mainContainerRef.current,
-            start: "top bottom",
+            start: "top 25%",
             end: "center center",
             scrub: 1,
             markers: true,
           },
-        },
-      );
+        });
     }, mainContainerRef);
     return () => ctx.revert();
   }, []);
@@ -75,7 +86,9 @@ export const About = () => {
               alt="image"
             />
           </div>
-          <p className="w-[50%] text-xl">{data.about.description}</p>
+          <p className="w-[50%] text-xl" ref={paragraphRef}>
+            {data.about.description}
+          </p>
         </div>
       </div>
     </div>
