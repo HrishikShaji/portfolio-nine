@@ -48,8 +48,9 @@ export const Skills = () => {
 
 			skillRef.current.forEach((el) => {
 				el?.addEventListener("mouseenter", mouseEnter);
-
 				el?.addEventListener("mouseleave", mouseLeave);
+
+				const heading = el?.getElementsByClassName("heading");
 
 				return () => {
 					el?.removeEventListener("mouseenter", mouseEnter);
@@ -77,7 +78,7 @@ export const Skills = () => {
 							className="h-full w-full z-10 absolute mix-blend-difference bg-white origin-top"
 						></div>
 						<div className="absolute bottom-0  transform left-[15%] ">
-							<h1 className="whitespace-nowrap transform text-5xl origin-top-left -rotate-90">
+							<h1 className="heading whitespace-nowrap transform text-5xl origin-top-left -rotate-90">
 								{skill.name}
 							</h1>
 						</div>
