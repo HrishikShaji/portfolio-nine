@@ -4,57 +4,61 @@ import { useLayoutEffect, useEffect, useRef } from "react";
 import { data } from "../lib/data";
 
 export const About = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mainContainerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
-  const paragraphRef = useRef<HTMLParagraphElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const mainContainerRef = useRef<HTMLDivElement>(null);
+	const imageRef = useRef<HTMLImageElement>(null);
+	const paragraphRef = useRef<HTMLParagraphElement>(null);
 
-  useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      const tl = gsap.timeline();
-      gsap.set(paragraphRef.current, { opacity: 0 });
-      gsap.set(imageRef.current, { scale: 2.5 });
-      tl.to(imageRef.current, {
-        scale: 1,
-        scrollTrigger: {
-          trigger: imageRef.current,
-          start: "top bottom",
-          end: "center center",
-          scrub: 1,
-          markers: true,
-        },
-      }).to(paragraphRef.current, {
-        opacity: 1,
-        scrollTrigger: {
-          trigger: paragraphRef.current,
-          start: "top 25%",
-          end: "center center",
-          scrub: 1,
-        },
-      });
-    }, mainContainerRef);
+	useEffect(() => {
+		let ctx = gsap.context(() => {
+			const tl = gsap.timeline();
+			tl.from(imageRef.current, {
+				scale: 2.5,
+				scrollTrigger: {
+					trigger: imageRef.current,
+					start: "top bottom",
+					end: "center center",
+					scrub: 1,
+				},
+			}).from(paragraphRef.current, {
+				opacity: 0,
+				scrollTrigger: {
+					trigger: paragraphRef.current,
+					start: "top 25%",
+					end: "center center",
+					scrub: 1,
+				},
+			});
+		}, mainContainerRef);
 
-    return () => ctx.revert();
-  }, []);
+		return () => ctx.revert();
+	}, []);
 
-  return (
-    <div className="flex h-full w-full flex-col gap-10" ref={mainContainerRef}>
-      <h1 className="text-6xl font-poppins font-semibold">ABOUT</h1>
-      <div className="flex items-center gap-10">
-        <div className="w-[50vw] rounded-3xl h-full overflow-hidden">
-          <Image
-            ref={imageRef}
-            src={data.personal.profileImg}
-            className="h-full    w-[50vw]  object-cover"
-            height={1000}
-            width={1000}
-            alt="image"
-          />
-        </div>
-        <p className="w-[50%] text-xl" ref={paragraphRef}>
-          {data.about.description}
-        </p>
-      </div>
-    </div>
-  );
+	return (
+		<div
+			className="flex rounded-3xl h-full bg-neutral-600 w-full flex-col gap-10"
+			ref={mainContainerRef}
+		>
+			<h1 className="text-6xl font-poppins font-semibold">ABOUT</h1>
+			<div className="flex w-full h-full items-center gap-10">
+				<div className="w-[50%] rounded-3xl h-full">
+					<div className="w-[500px] h-[500px] overflow-hidden">
+						<Image
+							ref={imageRef}
+							src={data.personal.profileImg}
+							className="h-[500px]    w-[500px]  object-cover"
+							height={1000}
+							width={1000}
+							alt="image"
+						/>
+					</div>
+				</div>
+				<div className="w-[50%] h-full">
+					<p className=" text-xl" ref={paragraphRef}>
+						{data.about.description}
+					</p>
+				</div>
+			</div>
+		</div>
+	);
 };

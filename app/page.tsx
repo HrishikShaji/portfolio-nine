@@ -14,45 +14,59 @@ import { useEffect, useRef } from "react";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
+	const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  useEffect(() => {
-    containerRefs.current.forEach((el) => {
-      gsap.fromTo(
-        el,
-        {
-          scale: 1.1,
-        },
-        {
-          scale: 1,
-          scrollTrigger: {
-            trigger: el,
-            pin: el,
-            start: "top top",
-            end: "center 30%",
-            scrub: 1,
-          },
-        },
-      );
-    });
-  }, [containerRefs.current]);
+	useEffect(() => {
+		let ctx = gsap.context(() => {
+			containerRefs.current.forEach((card, index) => {
+				const tween = gsap.to(card, {
+					scrollTrigger: {
+						trigger: card,
+						start: () => `top bottom-=100`,
+						end: () => `top top+=40`,
+						scrub: true,
+						markers: true,
+						invalidateOnRefresh: true,
+					},
+					ease: "none",
+					scale: () => 1 - (containerRefs.current.length - index) * 0.025,
+				});
 
-  const lookup = [
-    { component: <Hero /> },
-    { component: <About /> },
-    { component: <Skills /> },
-  ];
+				ScrollTrigger.create({
+					trigger: card,
+					start: "top top",
+					pin: true,
+					pinSpacing: false,
+					markers: true,
+					id: "pin",
+					end: "max",
+					invalidateOnRefresh: true,
+				});
+			});
+		});
 
-  return (
-    <main className=" bg-neutral-900">
-      {lookup.map((item, i) => (
-        <div
-          key={i}
-          className="h-screen p-10 sticky top-0 w-full flex justify-center items-center"
-        >
-          {item.component}{" "}
-        </div>
-      ))}
-    </main>
-  );
+		return () => ctx.revert();
+	}, [containerRefs.current]);
+
+	const lookup = [
+		{ component: <Hero /> },
+		{ component: <About /> },
+		{ component: <Skills /> },
+		{ component: <Projects /> },
+		{ component: <Contact /> },
+	];
+
+	return (
+		<main className="h-full p-5 bg-neutral-900">
+			{lookup.map((item, i) => (
+				<div
+					ref={(el) => (containerRefs.current[i] = el)}
+					key={i}
+					className="h-screen p-10  w-full flex justify-center items-center"
+				>
+					{item.component}{" "}
+				</div>
+			))}
+		</main>
+	);
 }
