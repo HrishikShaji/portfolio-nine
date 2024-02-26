@@ -4,37 +4,22 @@ import { useLayoutEffect, useEffect, useRef } from "react";
 
 interface SkillProps {
 	item: Record<string, any>;
+	active: boolean;
 }
 
-export const Skill: React.FC<SkillProps> = ({ item }) => {
+export const Skill: React.FC<SkillProps> = ({ item, active }) => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const headingRef = useRef<HTMLHeadingElement>(null);
 
 	useEffect(() => {
 		let ctx = gsap.context(() => {
-			const mouseEnter = (e: MouseEvent) => {
-				gsap.to(e.target, {
-					width: "800px",
-					duration: 0.75,
-				});
-			};
-			const mouseLeave = (e: MouseEvent) => {
-				gsap.to(e.target, {
-					width: "150px",
-					duration: 0.75,
-				});
-			};
-			if (containerRef.current) {
-				containerRef.current.addEventListener("mouseenter", mouseEnter);
-				containerRef.current.addEventListener("mouseleave", mouseLeave);
-
-				return () => {
-					containerRef.current.removeEventListener("mouseenter", mouseEnter);
-					containerRef.current.removeEventListener("mouseleave", mouseLeave);
-				};
+			if (active) {
+				gsap.to(headingRef.current, { opacity: 0, duration: 0.5 });
+			} else {
+				gsap.to(headingRef.current, { opacity: 1, duration: 0.5 });
 			}
 		}, containerRef);
-	}, []);
+	}, [active]);
 
 	return (
 		<div

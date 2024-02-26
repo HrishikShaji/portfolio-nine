@@ -1,12 +1,16 @@
 "use client";
 import gsap from "gsap";
-import { useLayoutEffect, useEffect, useRef } from "react";
+import { useLayoutEffect, useEffect, useRef, useState } from "react";
 import { data } from "../lib/data";
+import { Skill } from "./Skill";
 
 export const Skills = () => {
 	const mainContainerRef = useRef<HTMLDivElement>(null);
 	const skillRef = useRef<(HTMLDivElement | null)[]>([]);
 	const overlayRef = useRef<(HTMLDivElement | null)[]>([]);
+	const [active, setActive] = useState(
+		Array(data.skills.data.length).fill(false),
+	);
 
 	useEffect(() => {
 		let ctx = gsap.context(() => {
@@ -69,6 +73,8 @@ export const Skills = () => {
 			<div className="flex gap-2 h-full w-full">
 				{data.skills.data.map((skill, i) => (
 					<div
+						onMouseEnter={() => setActive((prev) => ({ ...prev, [i]: true }))}
+						onMouseLeave={() => setActive((prev) => ({ ...prev, [i]: false }))}
 						ref={(el) => (skillRef.current[i] = el)}
 						key={i}
 						className="bg-white overflow-hidden h-full w-[150px] flex relative items-end "
@@ -77,11 +83,7 @@ export const Skills = () => {
 							ref={(el) => (overlayRef.current[i] = el)}
 							className="h-full w-full z-10 absolute mix-blend-difference bg-white origin-top"
 						></div>
-						<div className="absolute bottom-0  transform left-[15%] ">
-							<h1 className="heading whitespace-nowrap transform text-5xl origin-top-left -rotate-90">
-								{skill.name}
-							</h1>
-						</div>
+						<Skill item={skill} active={active[i]} />
 					</div>
 				))}
 			</div>
