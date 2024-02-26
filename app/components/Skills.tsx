@@ -9,28 +9,54 @@ export const Skills = () => {
 	const overlayRef = useRef<(HTMLDivElement | null)[]>([]);
 
 	useEffect(() => {
-		gsap.set(skillRef.current, { yPercent: 200 });
-		const tl = gsap.timeline();
-		tl.to(skillRef.current, {
-			yPercent: 0,
-			stagger: { each: 0.05, from: "center" },
-			scrollTrigger: {
-				trigger: mainContainerRef.current,
-				start: "top bottom",
-				end: "center center",
-				scrub: 1,
-			},
-		}).to(overlayRef.current, {
-			yPercent: -100,
-			stagger: { each: 0.05, from: "center" },
-			scrollTrigger: {
-				trigger: mainContainerRef.current,
-				start: "top 10%",
-				end: "top top",
-				scrub: 1,
-				markers: true,
-			},
-		});
+		let ctx = gsap.context(() => {
+			gsap.set(skillRef.current, { yPercent: 200 });
+			const tl = gsap.timeline();
+			tl.to(skillRef.current, {
+				yPercent: 0,
+				stagger: { each: 0.05, from: "center" },
+				scrollTrigger: {
+					trigger: mainContainerRef.current,
+					start: "top bottom",
+					end: "center center",
+					scrub: 1,
+				},
+			}).to(overlayRef.current, {
+				yPercent: -100,
+				stagger: { each: 0.05, from: "center" },
+				scrollTrigger: {
+					trigger: mainContainerRef.current,
+					start: "top 10%",
+					end: "top top",
+					scrub: 1,
+					markers: true,
+				},
+			});
+
+			const mouseEnter = (e: MouseEvent) => {
+				gsap.to(e.target, {
+					width: "800px",
+					duration: 0.75,
+				});
+			};
+			const mouseLeave = (e: MouseEvent) => {
+				gsap.to(e.target, {
+					width: "150px",
+					duration: 0.75,
+				});
+			};
+
+			skillRef.current.forEach((el) => {
+				el?.addEventListener("mouseenter", mouseEnter);
+
+				el?.addEventListener("mouseleave", mouseLeave);
+
+				return () => {
+					el?.removeEventListener("mouseenter", mouseEnter);
+					el?.removeEventListener("mouseleave", mouseLeave);
+				};
+			});
+		}, mainContainerRef);
 	}, []);
 
 	return (
@@ -44,7 +70,7 @@ export const Skills = () => {
 					<div
 						ref={(el) => (skillRef.current[i] = el)}
 						key={i}
-						className="bg-white overflow-hidden h-full w-full flex relative items-end "
+						className="bg-white overflow-hidden h-full w-[150px] flex relative items-end "
 					>
 						<div
 							ref={(el) => (overlayRef.current[i] = el)}
