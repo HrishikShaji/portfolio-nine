@@ -4,16 +4,14 @@ import { useLayoutEffect, useEffect, useRef } from "react";
 import { data } from "../lib/data";
 
 export const Skills = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const mainContainerRef = useRef<HTMLDivElement>(null);
   const skillRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const tl = gsap.timeline();
     gsap.set(skillRef.current, { yPercent: 200 });
     gsap.to(skillRef.current, {
       yPercent: 0,
-      stagger: 0.05,
+      stagger: { each: 0.05, from: "center" },
       scrollTrigger: {
         trigger: mainContainerRef.current,
         start: "top bottom",

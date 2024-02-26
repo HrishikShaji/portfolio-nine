@@ -54,7 +54,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="h-full  bg-neutral-900">
+    <main className="h-full flex flex-col gap-[400px] bg-neutral-900">
       {lookup.map((item, i) => (
         <div
           ref={(el) => (containerRefs.current[i] = el)}
