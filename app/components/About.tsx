@@ -13,9 +13,9 @@ export const About = () => {
     let ctx = gsap.context(() => {
       const tl = gsap.timeline();
       tl.from(imageRef.current, {
-        scale: 2.5,
+        scale: 1.5,
         scrollTrigger: {
-          trigger: imageRef.current,
+          trigger: mainContainerRef.current,
           start: "top bottom",
           end: "center center",
           scrub: 1,
@@ -23,10 +23,11 @@ export const About = () => {
       }).from(paragraphRef.current, {
         opacity: 0,
         scrollTrigger: {
-          trigger: paragraphRef.current,
-          start: "top 25%",
-          end: "center center",
+          trigger: mainContainerRef.current,
+          start: "top 40%",
+          end: "top 25%",
           scrub: 1,
+          markers: true,
         },
       });
     }, mainContainerRef);
@@ -41,19 +42,19 @@ export const About = () => {
     >
       <h1 className="text-6xl font-poppins font-semibold">ABOUT</h1>
       <div className="flex w-full h-full items-center gap-10">
-        <div className="w-[50%] rounded-3xl h-full">
-          <div className="w-[500px] h-[500px] overflow-hidden">
+        <div className="w-[50%]  h-full">
+          <div className="w-full rounded-3xl h-full overflow-hidden">
             <Image
               ref={imageRef}
               src={data.personal.profileImg}
-              className="h-[500px]    w-[500px]  object-cover"
+              className="h-full    w-fit  object-cover"
               height={1000}
               width={1000}
               alt="image"
             />
           </div>
         </div>
-        <div className="w-[50%] h-full">
+        <div className="w-[50%] h-full flex items-center">
           <p className=" text-xl" ref={paragraphRef}>
             {data.about.description}
           </p>
