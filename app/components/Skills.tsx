@@ -14,11 +14,16 @@ export const Skills = () => {
 
 	useEffect(() => {
 		let ctx = gsap.context(() => {
+			gsap.to(skillRef.current, {
+				width: (i) => (i === 0 ? "800px" : "150px"),
+				duration: 0.5,
+				ease: "back",
+			});
 			gsap.set(skillRef.current, { yPercent: 200 });
 			const tl = gsap.timeline();
 			tl.to(skillRef.current, {
 				yPercent: 0,
-				stagger: { each: 0.05, from: "center" },
+				stagger: { each: 0.05, },
 				scrollTrigger: {
 					trigger: mainContainerRef.current,
 					start: "top bottom",
@@ -27,7 +32,7 @@ export const Skills = () => {
 				},
 			}).to(overlayRef.current, {
 				yPercent: -100,
-				stagger: { each: 0.05, from: "center" },
+				stagger: { each: 0.05 },
 				scrollTrigger: {
 					trigger: mainContainerRef.current,
 					start: "top 10%",
@@ -38,27 +43,18 @@ export const Skills = () => {
 			});
 
 			const mouseEnter = (e: MouseEvent) => {
-				gsap.to(e.target, {
-					width: "800px",
-					duration: 0.75,
-				});
-			};
-			const mouseLeave = (e: MouseEvent) => {
-				gsap.to(e.target, {
-					width: "150px",
-					duration: 0.75,
+				gsap.to(skillRef.current, {
+					width: (i) => (skillRef.current[i] === e.target ? "800px" : "150px"),
+					duration: 0.5,
+					ease: "back",
 				});
 			};
 
 			skillRef.current.forEach((el) => {
 				el?.addEventListener("mouseenter", mouseEnter);
-				el?.addEventListener("mouseleave", mouseLeave);
-
-				const heading = el?.getElementsByClassName("heading");
 
 				return () => {
 					el?.removeEventListener("mouseenter", mouseEnter);
-					el?.removeEventListener("mouseleave", mouseLeave);
 				};
 			});
 		}, mainContainerRef);
@@ -77,13 +73,12 @@ export const Skills = () => {
 						onMouseLeave={() => setActive((prev) => ({ ...prev, [i]: false }))}
 						ref={(el) => (skillRef.current[i] = el)}
 						key={i}
-						className="bg-white overflow-hidden h-full w-[150px] flex relative items-end "
+						className="rounded-xl bg-white overflow-hidden h-full w-[150px] flex relative items-end "
 					>
 						<div
 							ref={(el) => (overlayRef.current[i] = el)}
-							className="h-full w-full z-10 absolute mix-blend-difference bg-white origin-top"
+							className="rounded-xl h-full w-full z-10 absolute  bg-black origin-top"
 						></div>
-						<Skill item={skill} active={active[i]} />
 					</div>
 				))}
 			</div>
