@@ -6,27 +6,7 @@ export const Contact = () => {
   const mainContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let ctx = gsap.context(() => {
-      gsap.fromTo(
-        containerRef.current,
-        {
-          rotateX: "-45deg",
-          y: 200,
-          scale: 0.95,
-        },
-        {
-          y: 0,
-          scale: 1,
-          rotateX: "0deg",
-          scrollTrigger: {
-            trigger: mainContainerRef.current,
-            start: "top center",
-            end: "center center",
-            scrub: true,
-          },
-        },
-      );
-    }, mainContainerRef);
+    let ctx = gsap.context(() => {}, mainContainerRef);
     return () => ctx.revert();
   }, []);
 
@@ -35,8 +15,23 @@ export const Contact = () => {
       ref={mainContainerRef}
       className="h-full rounded-3xl w-full p-10 bg-neutral-400 flex flex-col gap-10"
     >
-      <div className="flex items-center gap-100">
-        <h1 className="text-6xl font-poppins font-semibold">CONTACT</h1>
+      <h1 className="text-6xl font-poppins font-semibold">Contact</h1>
+      <div className="flex flex-col items-center justify-center gap-2 h-full w-full overflow-hidden">
+        <form className="w-[50%] h-[50%] flex flex-col gap-4">
+          <input
+            className="w-full p-2 rounded-md focus:outline-none"
+            placeholder="name"
+          />
+          <input
+            className="w-full p-2 rounded-md focus:outline-none"
+            placeholder="email"
+          />
+          <textarea
+            className="w-full p-2 rounded-md focus:outline-none"
+            placeholder="message"
+          />
+          <button className="p-2 rounded-md bg-white">Send Message</button>
+        </form>
       </div>
     </div>
   );
