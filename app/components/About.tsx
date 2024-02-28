@@ -11,23 +11,47 @@ export const About = () => {
 	useEffect(() => {
 		let ctx = gsap.context(() => {
 			const tl = gsap.timeline();
-			tl.from(imageRef.current, {
-				scale: 1.5,
+			tl.from(mainContainerRef.current, {
+				scale: 1.05,
 				scrollTrigger: {
 					trigger: mainContainerRef.current,
-					start: "top bottom",
-					end: "center center",
+					start: "top center",
+					end: "top top",
 					scrub: 1,
 				},
-			}).from(paragraphRef.current, {
-				opacity: 0,
-				scrollTrigger: {
-					trigger: mainContainerRef.current,
-					start: "top 40%",
-					end: "top 25%",
-					scrub: 1,
-				},
-			});
+			})
+				.from(imageRef.current, {
+					scale: 1.5,
+					scrollTrigger: {
+						trigger: mainContainerRef.current,
+						start: "top bottom",
+						end: "center center",
+						scrub: 1,
+					},
+				})
+				.from(paragraphRef.current, {
+					opacity: 0,
+					scrollTrigger: {
+						trigger: mainContainerRef.current,
+						start: "top 40%",
+						end: "top 25%",
+						scrub: 1,
+					},
+				})
+				.fromTo(
+					mainContainerRef.current,
+					{ scale: 1 },
+					{
+						immediateRender: false,
+						scale: 0.95,
+						scrollTrigger: {
+							trigger: mainContainerRef.current,
+							start: "bottom center",
+							end: "bottom top",
+							scrub: 1,
+						},
+					},
+				);
 		}, mainContainerRef);
 
 		return () => ctx.revert();
