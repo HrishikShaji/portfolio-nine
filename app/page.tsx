@@ -11,6 +11,7 @@ import { Contact } from "./components/Contact";
 import { Container } from "./components/Container";
 import { useEffect, useRef } from "react";
 import { Features } from "./components/Features";
+import { Timeline } from "./components/Timeline";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,6 +48,7 @@ export default function Home() {
 	const lookup = [
 		{ component: <Hero /> },
 		{ component: <About /> },
+		{ component: <Timeline /> },
 		{ component: <Features /> },
 		{ component: <Skills /> },
 		{ component: <Projects /> },
