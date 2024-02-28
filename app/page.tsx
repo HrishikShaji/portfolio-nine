@@ -10,60 +10,60 @@ import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact";
 import { Container } from "./components/Container";
 import { useEffect, useRef } from "react";
+import { Features } from "./components/Features";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
+	const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      containerRefs.current.forEach((card, index) => {
-        const tween = gsap.to(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: () => `top bottom-=100`,
-            end: () => `top top+=40`,
-            scrub: true,
-            invalidateOnRefresh: true,
-          },
-          ease: "none",
-        });
+	useEffect(() => {
+		let ctx = gsap.context(() => {
+			containerRefs.current.forEach((card, index) => {
+				const tween = gsap.to(card, {
+					scrollTrigger: {
+						trigger: card,
+						start: () => `top bottom-=100`,
+						end: () => `top top+=40`,
+						scrub: true,
+					},
+					ease: "none",
+				});
 
-        ScrollTrigger.create({
-          trigger: card,
-          start: "top top",
-          pin: true,
-          pinSpacing: false,
-          id: "pin",
-          end: "max",
-          invalidateOnRefresh: true,
-        });
-      });
-    });
+				ScrollTrigger.create({
+					trigger: card,
+					start: "top top",
+					pin: true,
+					pinSpacing: false,
+					id: "pin",
+					end: "max",
+				});
+			});
+		});
 
-    return () => ctx.revert();
-  }, [containerRefs.current]);
+		return () => ctx.revert();
+	}, []);
 
-  const lookup = [
-    { component: <Hero /> },
-    { component: <About /> },
-    { component: <Skills /> },
-    { component: <Projects /> },
-    { component: <Contact /> },
-  ];
+	const lookup = [
+		{ component: <Hero /> },
+		{ component: <About /> },
+		{ component: <Features /> },
+		{ component: <Skills /> },
+		{ component: <Projects /> },
+		{ component: <Contact /> },
+	];
 
-  return (
-    <main className="h-full flex flex-col gap-[400px] bg-neutral-900">
-      {lookup.map((item, i) => (
-        <div
-          ref={(el) => (containerRefs.current[i] = el)}
-          key={i}
-          className="h-screen p-10  w-full flex justify-center items-center"
-        >
-          {item.component}{" "}
-        </div>
-      ))}
-    </main>
-  );
+	return (
+		<main className="h-full flex flex-col gap-[400px] bg-neutral-900">
+			{lookup.map((item, i) => (
+				<div
+					ref={(el) => (containerRefs.current[i] = el)}
+					key={i}
+					className="h-screen p-10  w-full flex justify-center items-center"
+				>
+					{item.component}{" "}
+				</div>
+			))}
+		</main>
+	);
 }
