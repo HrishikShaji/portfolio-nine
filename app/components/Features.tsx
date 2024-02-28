@@ -11,21 +11,21 @@ export const Features = () => {
   useEffect(() => {
     let ctx = gsap.context(() => {
       const tl = gsap.timeline();
-      gsap.set(featureRefs.current, { xPercent: 100 });
-      gsap.set(featureRefs.current, { xPercent: 0 });
+      gsap.set(featureRefs.current, {
+        yPercent: (i) => (i % 2 === 0 ? 50 : -50),
+      });
+      gsap.set(overlayRefs.current, { yPercent: 0 });
       tl.to(featureRefs.current, {
-        xPercent: 0,
-        stagger: 0.05,
+        yPercent: 0,
         scrollTrigger: {
           trigger: mainContainerRef.current,
-          start: "top bottom",
+          start: "top center",
           end: "top top",
           scrub: true,
           markers: true,
         },
       }).to(overlayRefs.current, {
-        xPercent: -100,
-        stagger: 0.05,
+        yPercent: (i) => (i % 2 === 0 ? -100 : 100),
         scrollTrigger: {
           trigger: mainContainerRef.current,
           start: "top 40%",
