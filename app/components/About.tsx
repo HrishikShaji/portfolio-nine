@@ -11,47 +11,23 @@ export const About = () => {
 	useEffect(() => {
 		let ctx = gsap.context(() => {
 			const tl = gsap.timeline();
-			tl.from(mainContainerRef.current, {
-				scale: 1.05,
+			tl.from(imageRef.current, {
+				scale: 1.5,
 				scrollTrigger: {
 					trigger: mainContainerRef.current,
-					start: "top center",
-					end: "top top",
+					start: "top bottom",
+					end: "center center",
 					scrub: 1,
 				},
-			})
-				.from(imageRef.current, {
-					scale: 1.5,
-					scrollTrigger: {
-						trigger: mainContainerRef.current,
-						start: "top bottom",
-						end: "center center",
-						scrub: 1,
-					},
-				})
-				.from(paragraphRef.current, {
-					opacity: 0,
-					scrollTrigger: {
-						trigger: mainContainerRef.current,
-						start: "top 40%",
-						end: "top 25%",
-						scrub: 1,
-					},
-				})
-				.fromTo(
-					mainContainerRef.current,
-					{ scale: 1 },
-					{
-						immediateRender: false,
-						scale: 0.95,
-						scrollTrigger: {
-							trigger: mainContainerRef.current,
-							start: "bottom center",
-							end: "bottom top",
-							scrub: 1,
-						},
-					},
-				);
+			}).from(paragraphRef.current, {
+				opacity: 0,
+				scrollTrigger: {
+					trigger: mainContainerRef.current,
+					start: "top 40%",
+					end: "top 25%",
+					scrub: 1,
+				},
+			});
 		}, mainContainerRef);
 
 		return () => ctx.revert();
@@ -59,10 +35,10 @@ export const About = () => {
 
 	return (
 		<div
-			className="h-full rounded-3xl w-full p-10 bg-neutral-400 flex flex-col gap-10"
+			className="flex flex-col gap-10 p-10 h-full w-full"
 			ref={mainContainerRef}
 		>
-			<h1 className="text-6xl font-poppins font-semibold">ABOUT</h1>
+			<h1 className="text-6xl font-poppins font-semibold">About</h1>
 			<div className="flex w-full h-full items-center gap-10">
 				<div className="w-[50%]  h-full">
 					<div className="w-full rounded-3xl h-full overflow-hidden">

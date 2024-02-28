@@ -1,49 +1,46 @@
 import gsap from "gsap";
-import { useLayoutEffect, useEffect, useRef, ReactNode } from "react";
+import { useEffect, useRef, ReactNode } from "react";
 
 interface ContainerProps {
-  children: ReactNode;
+	children: ReactNode;
 }
 
 export const Container: React.FC<ContainerProps> = ({ children }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mainContainerRef = useRef<HTMLDivElement>(null);
+	const mainContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      gsap.fromTo(
-        containerRef.current,
-        {
-          y: 200,
-          scale: 1.1,
-        },
-        {
-          y: 0,
-          scale: 1,
-          scrollTrigger: {
-            trigger: mainContainerRef.current,
-            start: "top bottom",
-            end: "center center",
-            scrub: 1,
-          },
-        },
-      );
-    }, mainContainerRef);
+	useEffect(() => {
+		let ctx = gsap.context(() => {
+			const tl = gsap.timeline();
+			tl.from(mainContainerRef.current, {
+				scale: 1.05,
+				scrollTrigger: {
+					trigger: mainContainerRef.current,
+					start: "top center",
+					end: "top top",
+					scrub: 1,
+				},
+			}).fromTo(
+				mainContainerRef.current,
+				{ scale: 1 },
+				{
+					immediateRender: false,
+					scale: 0.95,
+					scrollTrigger: {
+						trigger: mainContainerRef.current,
+						start: "bottom center",
+						end: "bottom top",
+						scrub: 1,
+					},
+				},
+			);
+		}, mainContainerRef);
 
-    return () => ctx.revert();
-  }, []);
+		return () => ctx.revert();
+	}, []);
 
-  return (
-    <div
-      ref={mainContainerRef}
-      className=" h-screen p-5 sticky overflow-hidden  top-0 w-full z-0"
-    >
-      <div
-        ref={containerRef}
-        className="flex flex-col p-5 gap-20  bg-neutral-600 justify-center  w-full h-full rounded-3xl"
-      >
-        {children}
-      </div>
-    </div>
-  );
+	return (
+		<div className="h-full rounded-3xl w-full " ref={mainContainerRef}>
+			{children}
+		</div>
+	);
 };

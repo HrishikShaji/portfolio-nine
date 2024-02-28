@@ -39,8 +39,8 @@ export const Timeline = () => {
 
 	return (
 		<div
+			className="flex flex-col gap-10 p-10 h-full w-full"
 			ref={mainContainerRef}
-			className="h-full rounded-3xl w-full p-10 bg-neutral-400 flex flex-col gap-10"
 		>
 			<h1 className="text-6xl font-poppins font-semibold">
 				Education & Experience

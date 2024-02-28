@@ -11,6 +11,7 @@ import { useEffect, useRef } from "react";
 import { Features } from "./components/Features";
 import { Timeline } from "./components/Timeline";
 import { Testimonials } from "./components/Testimonials";
+import { Container } from "./components/Container";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,7 +64,7 @@ export default function Home() {
 					key={i}
 					className="h-screen p-10  w-full flex justify-center items-center"
 				>
-					{item.component}{" "}
+					<Container>{item.component}</Container>
 				</div>
 			))}
 		</main>
