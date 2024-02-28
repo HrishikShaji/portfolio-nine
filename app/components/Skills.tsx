@@ -55,7 +55,7 @@ export const Skills = () => {
 
 	return (
 		<div
-			className="h-full rounded-3xl w-full p-10 bg-neutral-400 flex flex-col gap-10"
+			className="flex bg-neutral-700 flex-col gap-10 p-10 h-full w-full"
 			ref={mainContainerRef}
 		>
 			<h1 className="text-6xl font-poppins font-semibold">SKILLS</h1>

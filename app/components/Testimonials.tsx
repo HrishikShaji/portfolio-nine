@@ -36,7 +36,6 @@ export const Testimonials = () => {
 					start: "top 15%",
 					end: "top top",
 					scrub: true,
-					markers: true,
 				},
 			}).to(overlayRefs.current, {
 				xPercent: -100,
@@ -46,7 +45,6 @@ export const Testimonials = () => {
 					start: "top 40%",
 					end: "top 10%",
 					scrub: true,
-					markers: true,
 				},
 			});
 		}, mainContainerRef);
@@ -54,8 +52,8 @@ export const Testimonials = () => {
 
 	return (
 		<div
+			className="flex bg-neutral-700 flex-col gap-10 p-10 h-full w-full"
 			ref={mainContainerRef}
-			className="h-full rounded-3xl w-full p-10 bg-neutral-400 flex flex-col gap-10"
 		>
 			<h1 className="text-6xl font-poppins font-semibold">Testimonials</h1>
 			<div className="grid grid-cols-3 gap-4 h-full w-full overflow-hidden">

@@ -39,7 +39,10 @@ export const Container: React.FC<ContainerProps> = ({ children }) => {
 	}, []);
 
 	return (
-		<div className="h-full rounded-3xl w-full " ref={mainContainerRef}>
+		<div
+			className="h-full overflow-hidden  rounded-3xl w-full "
+			ref={mainContainerRef}
+		>
 			{children}
 		</div>
 	);

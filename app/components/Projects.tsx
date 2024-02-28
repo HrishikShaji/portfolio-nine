@@ -21,7 +21,6 @@ export const Projects = () => {
 					start: "top bottom",
 					end: "top top",
 					scrub: true,
-					markers: true,
 				},
 			}).to(overlayRefs.current, {
 				xPercent: -100,
@@ -31,7 +30,6 @@ export const Projects = () => {
 					start: "top 40%",
 					end: "top 10%",
 					scrub: true,
-					markers: true,
 				},
 			});
 		}, mainContainerRef);
@@ -39,8 +37,8 @@ export const Projects = () => {
 
 	return (
 		<div
+			className="flex bg-neutral-700 flex-col gap-10 p-10 h-full w-full"
 			ref={mainContainerRef}
-			className="h-full rounded-3xl w-full p-10 bg-neutral-400 flex flex-col gap-10"
 		>
 			<h1 className="text-6xl font-poppins font-semibold">PROJECTS</h1>
 			<div className="flex flex-col justify-between gap-2 h-full w-full overflow-hidden">

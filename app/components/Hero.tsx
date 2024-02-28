@@ -5,7 +5,7 @@ import gsap from "gsap";
 
 export const Hero = () => {
 	return (
-		<div className="flex h-full w-full items-center gap-100">
+		<div className="flex bg-neutral-700 h-full w-full items-center gap-100">
 			<Image
 				src={data.personal.img}
 				height={1000}

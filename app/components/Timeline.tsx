@@ -21,7 +21,6 @@ export const Timeline = () => {
 					start: "top bottom",
 					end: "top top",
 					scrub: true,
-					markers: true,
 				},
 			}).to(overlayRefs.current, {
 				xPercent: -100,
@@ -31,7 +30,6 @@ export const Timeline = () => {
 					start: "top 40%",
 					end: "top 10%",
 					scrub: true,
-					markers: true,
 				},
 			});
 		}, mainContainerRef);
@@ -39,7 +37,7 @@ export const Timeline = () => {
 
 	return (
 		<div
-			className="flex flex-col gap-10 p-10 h-full w-full"
+			className="flex bg-neutral-700 flex-col gap-10 p-10 h-full w-full"
 			ref={mainContainerRef}
 		>
 			<h1 className="text-6xl font-poppins font-semibold">
