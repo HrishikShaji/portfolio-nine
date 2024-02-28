@@ -11,30 +11,29 @@ export const Projects = () => {
 	useEffect(() => {
 		let ctx = gsap.context(() => {
 			const tl = gsap.timeline();
-			tl.set(projectRefs.current, { xPercent: 100 })
-				.set(overlayRefs.current, { xPercent: 100 })
-				.to(projectRefs.current, {
-					xPercent: 0,
-					stagger: 0.05,
-					scrollTrigger: {
-						trigger: mainContainerRef.current,
-						start: "top bottom",
-						end: "top top",
-						scrub: true,
-						markers: true,
-					},
-				})
-				.to(overlayRefs.current, {
-					xPercent: 0,
-					stagger: 0.05,
-					scrollTrigger: {
-						trigger: mainContainerRef.current,
-						start: "top 20%",
-						end: "top top",
-						scrub: true,
-						markers: true,
-					},
-				});
+			gsap.set(projectRefs.current, { xPercent: 100 });
+			gsap.set(overlayRefs.current, { xPercent: 0 });
+			tl.to(projectRefs.current, {
+				xPercent: 0,
+				stagger: 0.05,
+				scrollTrigger: {
+					trigger: mainContainerRef.current,
+					start: "top bottom",
+					end: "top top",
+					scrub: true,
+					markers: true,
+				},
+			}).to(overlayRefs.current, {
+				xPercent: -100,
+				stagger: 0.05,
+				scrollTrigger: {
+					trigger: mainContainerRef.current,
+					start: "top 40%",
+					end: "top 10%",
+					scrub: true,
+					markers: true,
+				},
+			});
 		}, mainContainerRef);
 	}, []);
 
@@ -48,7 +47,7 @@ export const Projects = () => {
 				{data.projects.data.slice(0, 10).map((project, i) => (
 					<div
 						ref={(el) => (projectRefs.current[i] = el)}
-						className="p-2 relative rounded-xl bg-white flex w-full h-full"
+						className="p-2 relative rounded-xl bg-white flex w-full h-full overflow-hidden"
 						key={i}
 					>
 						<div
